@@ -9,6 +9,7 @@ import AllProducts from './pages/AllProducts'
 import Cart from './pages/Cart'
 import ProductDetail from './pages/ProductDetail'
 import Footer from './Components/Footer'
+import ProductCategory from './pages/ProductCategory'
 
 
 const App = () => {
@@ -25,7 +26,7 @@ const App = () => {
         <Route path='/' element={<Home/>}/>
         <Route path='/all-products' element={<AllProducts/>}/>
         <Route path='/cart' element={<Cart/>}/>
-        <Route path='/product-details' element={<ProductDetail/>}/>
+        <Route path='/all-products/:category' element={<ProductCategory/>}/>
         <Route path='/' element={<Home/>}/>
       </Routes>
       <div>  
