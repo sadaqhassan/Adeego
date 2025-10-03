@@ -1,12 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { assets } from "../assets/assets";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../Context/AppContext";
 
 const Navbar = () => {
     const [open, setOpen]=useState(false)
-    const {user,setUser , setShowUserLogin ,navigate}= useAppContext()
+    const {user,setUser,products ,inPutSearch,setInputSearch, setShowUserLogin ,navigate,setSearchQuery}= useAppContext()
 
+    useEffect(()=>{
+      if(inPutSearch){
+      setSearchQuery(products.filter(product=>product.name.toLowerCase().includes(inPutSearch.toLowerCase())))
+      navigate('/all-products')
+    }else{
+      setSearchQuery([])
+    }
+    },[inPutSearch,products])
 
     //logout
     const handleLogout = async()=>{
@@ -32,7 +40,7 @@ const Navbar = () => {
                 <Link to={'/'}>Contact</Link>
 
                 <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
-                    <input className="py-1.5 w-full bg-transparent outline-none placeholder-gray-500" type="text" placeholder="Search products" />
+                    <input onChange={(e)=>setInputSearch(e.target.value)} className="py-1.5 w-full bg-transparent outline-none placeholder-gray-500" type="text" placeholder="Search products" />
                     <img src={assets.search_icon} alt="seach" />
                 </div>
 
@@ -43,9 +51,9 @@ const Navbar = () => {
 
                 {!user ?
                 (<button 
-                  onClick={handleLogin}
+                onClick={handleLogin}
                 className="cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition text-white rounded-full">
-                    Login
+                  Login
                 </button>):
                 (<div className="group relative cursor-pointer">
                   <img className=" h-8 w-8" src={assets.profile_icon} alt="profile" />

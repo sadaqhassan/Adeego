@@ -8,6 +8,7 @@ import Home from './pages/Home'
 import AllProducts from './pages/AllProducts'
 import Cart from './pages/Cart'
 import ProductDetail from './pages/ProductDetail'
+import Footer from './Components/Footer'
 
 
 const App = () => {
@@ -17,10 +18,8 @@ const App = () => {
     <div>
     
       <Toaster/>
+{ showUserLogin ? <Login/> : null}
       {!isSellerPath ? <Navbar/> : null}
-    {
-      showUserLogin && <Login/>
-    }
     <div className={`${isSellerPath ? '' :'px-6 md:px-16 xl:px-32 lg:px-24'}` }>
       <Routes>
         <Route path='/' element={<Home/>}/>
@@ -29,10 +28,10 @@ const App = () => {
         <Route path='/product-details' element={<ProductDetail/>}/>
         <Route path='/' element={<Home/>}/>
       </Routes>
-      <div>
-        </div>
-      
+      <div>  
       </div>
+      </div>
+    {isSellerPath ? "" : <Footer/>}
     </div>
   )
 }
