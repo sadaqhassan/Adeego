@@ -5,20 +5,23 @@ import { useAppContext } from "../Context/AppContext";
 
 const Navbar = () => {
     const [open, setOpen]=useState(false)
-    const {user,setUser , setShowUserLogin}= useAppContext()
+    const {user,setUser , setShowUserLogin ,navigate}= useAppContext()
 
-    const handleLogout = ()=>{
+
+    //logout
+    const handleLogout = async()=>{
       setUser(null)
+      navigate('/')
     }
-    const handleLogin = ()=>{
-      setOpen(false)
-      
+    //Login
+    const handleLogin = async()=>{
+      setOpen(false) 
       setShowUserLogin(true)
     }
     return (
         <nav className="flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 bg-white relative transition-all">
 
-            <Link to={'/'}>
+            <Link to={'/'} onClick={()=>setOpen(false)}>
                 <img src={assets.logo} alt="logo" />
             </Link>
 
@@ -33,7 +36,7 @@ const Navbar = () => {
                     <img src={assets.search_icon} alt="seach" />
                 </div>
 
-                <div className="relative cursor-pointer">
+                <div onClick={()=>navigate('/cart')} className="relative cursor-pointer">
                     <img src={assets.nav_cart_icon} alt="cart" className="w-6 opacity-80"/>
                     <button className="absolute -top-2 -right-3 text-xs text-white  bg-primary w-[18px] h-[18px] rounded-full">3</button>
                 </div>
@@ -44,11 +47,11 @@ const Navbar = () => {
                 className="cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition text-white rounded-full">
                     Login
                 </button>):
-                (<div>
-                  <img className="group relative h-8 w-8" src={assets.profile_icon} alt="profile" />
-                  <ul className="hidden hover:block absolute bg-white shadow-2xl">
-                    <li>My orders</li>
-                    <li onClick={handleLogout}>Logout</li>
+                (<div className="group relative cursor-pointer">
+                  <img className=" h-8 w-8" src={assets.profile_icon} alt="profile" />
+                  <ul className="hidden group-hover:block absolute rounded-lg shadow-2xl  px-2 w-24 bg-white border py-2  border-gray-300 text-sm z-40">
+                    <li className="hover:text-primary my-2 text-start">my orders</li>
+                    <li className="hover:text-primary text-start pt-2" onClick={handleLogout}>Logout</li>
                   </ul>
                 </div>
                 ) 
@@ -62,6 +65,7 @@ const Navbar = () => {
             </button>
 
             {/* Mobile Menu */}
+            {open &&
             <div className={`${open ? 'flex' : 'hidden'} absolute top-[60px] left-0 w-full bg-white shadow-md py-4 flex-col items-start gap-2 px-5 text-sm md:hidden`}>
                 <Link onClick={()=>setOpen(false)} to={'/'} className="block">Home</Link>
                 <Link onClick={()=>setOpen(false)} to={'/all-products'} className="block">AllProducts</Link>
@@ -69,17 +73,19 @@ const Navbar = () => {
                 {
                   user ?
                   ( <div><Link to={'/'} className="block">My orders</Link>
-                <button onClick={handleLogout} className="cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition text-white rounded-full">
+                <button onClick={handleLogout} className="cursor-pointer mt-2 px-8 py-2 bg-primary hover:bg-primary-dull transition text-white rounded-full">
                     Logout
                 </button> </div> )
                   :
                   (
-                <button onClick={()=>setOpen(false)} className="cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition text-white rounded-full">
+                <button onClick={handleLogin} className="cursor-pointer px-8 py-2 mt-4 bg-primary hover:bg-primary-dull transition text-white rounded-full">
                     Login
                 </button> )
+                
                 }
                 
             </div>
+            }
 
         </nav>
     )
