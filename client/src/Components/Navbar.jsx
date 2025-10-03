@@ -12,6 +12,7 @@ const Navbar = () => {
     }
     const handleLogin = ()=>{
       setOpen(false)
+      
       setShowUserLogin(true)
     }
     return (

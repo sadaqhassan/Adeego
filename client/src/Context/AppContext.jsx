@@ -26,6 +26,8 @@ export const AppContextProvider = ({children})=>{
         setIsSeller,
         user,
         setUser,
+        showUserLogin,
+        setShowUserLogin
     }
 
 
