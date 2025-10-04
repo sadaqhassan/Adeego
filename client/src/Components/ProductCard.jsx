@@ -7,7 +7,7 @@ const ProductCard = ({product}) => {
   const {currency, cartItems,addToCart,removeitem  ,navigate} = useAppContext()
 
     return product &&(
-        <div onClick={()=>{navigate(`all-products/:${product.category.toLowerCase()}/:${product._id}`); scrollTo(0,0)}} className="border border-gray-500/20 rounded-md md:px-4 px-3 py-2 bg-white min-w-56 max-w-56 w-full">
+        <div onClick={()=>{navigate(`all-products/${product.category.toLowerCase()}/${product._id}`); scrollTo(0,0)}} className="border border-gray-500/20 rounded-md md:px-4 px-3 py-2 bg-white min-w-56 max-w-56 w-full">
             <div  className="group cursor-pointer flex items-center justify-center px-2">
                 <img className="group-hover:scale-105 transition max-w-26 md:max-w-36" src={product.image} alt={product.name} />
             </div>
@@ -28,7 +28,7 @@ const ProductCard = ({product}) => {
                     </p>
                     <div className="text-primary">
                         {!cartItems[product._id] ?(
-                          <button  className="flex items-center justify-center gap-1 bg-gray-100 border border-gray-300 md:w-[80px] w-[64px] h-[34px] rounded text-primary font-medium" onClick={()=>{addToCart(product._id)}} >
+                        <button   className="flex items-center justify-center gap-1 bg-gray-100 border border-gray-300 md:w-[80px] w-[64px] h-[34px] rounded text-primary font-medium" onClick={()=>{addToCart(product._id)}} >
                                 <img src={assets.cart_icon} alt="" />
                                 Add
                             </button>
