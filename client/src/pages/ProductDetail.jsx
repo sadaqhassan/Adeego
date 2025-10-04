@@ -17,9 +17,11 @@ const ProductDetail = () => {
     useEffect(()=>{
         if(products.length>0){
             let productsCopy = products.slice()
-            productsCopy = productsCopy.filter((item)=>product.category === item.category)
+            productsCopy = productsCopy.filter((item)=> item.category=== product.category )
             setRelated(productsCopy.slice(0,4))
-        }setRelated([])
+        }else{
+            setRelated([])
+        }
     },[products])
     
     useEffect(()=>{
@@ -90,11 +92,12 @@ const ProductDetail = () => {
                         <h1 className="text-2xl md:text-3xl font-medium">Related Products</h1>
                         <div className="bg-primary w-20 mt-1 h-0.5 rounded-full"></div>
                     </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4">
-                        {related.map((item,index)=>(
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-5">
+                        {related.filter(pro=>pro.inStock).map((item,index)=>(
                             <ProductCard product={item} key={index}/>
                         ))}
                     </div>
+                    <button onClick={()=>{navigate('/all-products'); scrollTo(0,0)}} className="bg-gradient-to-b from-secondary to-primary px-2 py-1 rounded text-white  mt-10 "> See More</button>
                 </div>
             </div>
         </div>

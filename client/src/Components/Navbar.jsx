@@ -5,7 +5,7 @@ import { useAppContext } from "../Context/AppContext";
 
 const Navbar = () => {
     const [open, setOpen]=useState(false)
-    const {user,setUser,products ,inPutSearch,setInputSearch, setShowUserLogin ,navigate,setSearchQuery}= useAppContext()
+    const {user,setUser,products ,inPutSearch,setInputSearch, setShowUserLogin ,navigate,setSearchQuery,cartCount}= useAppContext()
 
     useEffect(()=>{
       if(inPutSearch){
@@ -46,7 +46,7 @@ const Navbar = () => {
 
                 <div onClick={()=>navigate('/cart')} className="relative cursor-pointer">
                     <img src={assets.nav_cart_icon} alt="cart" className="w-6 opacity-80"/>
-                    <button className="absolute -top-2 -right-3 text-xs text-white  bg-primary w-[18px] h-[18px] rounded-full">3</button>
+                    <button className="absolute -top-2 -right-3 text-xs text-white  bg-primary w-[18px] h-[18px] rounded-full">{cartCount()}</button>
                 </div>
 
                 {!user ?
@@ -66,9 +66,13 @@ const Navbar = () => {
 
                 }
             </div>
-
+             <div  onClick={()=>navigate('/cart')} className="relative md:hidden cursor-pointer">
+                    <img src={assets.nav_cart_icon} alt="cart" className="w-6 opacity-80"/>
+                    <button className="absolute -top-2 -right-3 text-xs text-white  bg-primary w-[18px] h-[18px] rounded-full">{cartCount()}</button>
+                </div>
             <button onClick={() => open ? setOpen(false) : setOpen(true)} aria-label="Menu" className="sm:hidden">
                 {/* Menu Icon SVG */}
+
                 <img src={assets.menu_icon} alt="menu" />
             </button>
 
